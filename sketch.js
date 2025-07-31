@@ -10,27 +10,23 @@ https://editor.p5js.org/dark_fox/sketches/wIYv7WKyl
 */
 
 const sketch = (p) => {
-  let CANVAS_WIDTH = 700;
-  let CANVAS_HEIGHT = 700;
-  let htmlBody;
+  let CANVAS_WIDTH = window.innerWidth * (700/1680);
+  let CANVAS_HEIGHT = CANVAS_WIDTH;
+  let htmlBody = document.querySelector("body");
   let canvas;
-  let canvasContainer;
-  let widthRatio = CANVAS_WIDTH/window.innerWidth;
-  let heightRatio = CANVAS_HEIGHT/window.innerHeight;
-
+  let canvasContainer = document.getElementById("p5-div");
   let brick;
 
   p.setup = () => {
     canvas = p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
     console.log("Canvas: ", canvas);
-    canvas.parent("p5-div")
+    console.log("Window width: ", window.innerWidth);
+    //canvas.parent("p5-div")
+    canvas.parent(document.querySelector("body"));
+
     /* shorthand for document.getElementById("p5-div").appendChild(canvas.elt);
     .elt is used because it gets the DOM element 
     */
-    htmlBody = document.querySelector("body");
-    canvasContainer = document.getElementById("p5-div");
-
-
     console.log("Window Height: ",window.innerHeight);
 
     // center x = half the screen size
@@ -50,7 +46,11 @@ const sketch = (p) => {
 
   p.windowResized = () => {
     console.log("windowResized is RUnning");
-    canvas.position(window.innerWidth/2 - CANVAS_WIDTH/2, window.innerHeight/2 - CANVAS_HEIGHT/2);
+    p.resizeCanvas(window.innerWidth * (700/1680), window.innerWidth * (700/1680))
+    //canvas.position(window.innerWidth/2 - (window.innerWidth * (700/1680))/2, window.innerHeight/2 - (window.innerHeight * (700/901))/2);
+    canvas.position(window.innerWidth/2 - window.innerWidth * (700/1680)/2, window.innerHeight/2 - window.innerWidth * (700/1680)/2);
+
+    //canvas.center();
   }
 };
 
